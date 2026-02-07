@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hey Lalove! 🎁</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 400px;
+    }
+
+    .cat-illustration {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #b52a2a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .question {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4a4a4a;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: #c41e3a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-x {
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .btn-check {
+      color: white;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    /* Sad cat overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 2rem;
+    }
+
+    .overlay.visible {
+      display: flex;
+    }
+
+    .sad-cat {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .overlay h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #8b2a2a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .overlay .subtext {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #6a6a6a;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .btn-back {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: #c41e3a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 2rem;
+    }
+
+    .btn-back:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Gift overlay (shown when check is clicked) */
+    .flowers-title {
+      font-family: 'Brush Script MT', 'Segoe Script', cursive;
+      font-size: 2.5rem;
+      color: #c41e3a;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .gift-overlay {
+      width: 280px;
+      max-width: 90%;
+      margin-bottom: 1rem;
+    }
+
+    .btn-open-presents {
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: #c41e3a;
+      border: none;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-open-presents:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4);
+    }
+
+    /* Presents overlay */
+    .presents-overlay {
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      padding: 2rem;
+    }
+
+    .presents-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #b52a2a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-family: 'Comic Sans MS', 'Chalkboard', sans-serif;
+    }
+
+    .presents-subtitle {
+      font-size: 0.9rem;
+      color: #5a5a5a;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .presents-grid {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .presents-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .present-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 16px;
+      background: #ffc8d4;
+      border: 2px solid #e85a6e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .present-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .present-btn img,
+    .present-btn .tenor-gif-embed,
+    .present-btn > div[style*="position:relative"] {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .present-btn iframe {
+      object-fit: cover;
+    }
+
+    .present-btn .tenor-gif-embed {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #presentsOverlay .btn-back {
+      margin-top: 1.5rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .container {
+        max-width: 100%;
+        gap: 1rem;
+      }
+
+      .cat-illustration {
+        width: 150px;
+        height: 150px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .question {
+        font-size: 0.9rem;
+      }
+
+      .buttons {
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+      }
+
+      .overlay {
+        padding: 1rem;
+      }
+
+      .sad-cat {
+        width: 140px;
+        height: 140px;
+      }
+
+      .overlay h2 {
+        font-size: 1.5rem;
+      }
+
+      .flowers-title {
+        font-size: 2rem;
+      }
+
+      .gift-overlay {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .presents-title {
+        font-size: 1.4rem;
+      }
+
+      .presents-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .presents-grid {
+        gap: 0.75rem;
+      }
+
+      .present-btn {
+        width: 85px;
+        height: 85px;
+      }
+
+      .btn-back {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+      }
+
+      .btn-open-presents {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.75rem;
+      }
+
+      .cat-illustration {
+        width: 120px;
+        height: 120px;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      .question {
+        font-size: 0.85rem;
+      }
+
+      .btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+
+      .overlay {
+        padding: 0.75rem;
+      }
+
+      .sad-cat {
+        width: 120px;
+        height: 120px;
+      }
+
+      .overlay h2 {
+        font-size: 1.25rem;
+      }
+
+      .flowers-title {
+        font-size: 1.75rem;
+      }
+
+      .presents-title {
+        font-size: 1.2rem;
+      }
+
+      .presents-grid {
+        gap: 0.5rem;
+      }
+
+      .present-btn {
+        width: 75px;
+        height: 75px;
+      }
+
+      .btn-back {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+    }
+
+    /* Falling Hearts Animation */
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 1.5rem;
+      color: #ff69b4;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    .overlay {
+      overflow: hidden;
+    }
+
+    .overlay .falling-heart {
+      z-index: 1;
+      position: absolute;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(100vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Gift overlay (shown when ✓ is clicked) -->
+  <div class="overlay" id="giftOverlay">
+    <h2 class="flowers-title">Flowers for you</h2>
+    <div class="gift-overlay">
+      <div class="tenor-gif-embed" data-postid="15564759" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/te-amo-love-i-love-you-flowers-for-you-heart-gif-15564759">Te Amo Love GIF</a>from <a href="https://tenor.com/search/te+amo-gifs">Te Amo GIFs</a></div>
+    </div>
+    <button class="btn-open-presents" type="button">Open Presents</button>
+    <button class="btn-back" type="button" title="Close">✕</button>
+  </div>
+
+  <!-- Presents overlay (shown when Open Presents is clicked) -->
+  <div class="overlay presents-overlay" id="presentsOverlay">
+    <div class="presents-content">
+      <h2 class="presents-title">Presents for you</h2>
+      <p class="presents-subtitle">CLICK ANY BUTTON TO OPEN</p>
+      <div class="presents-grid">
+        <button class="present-btn" type="button" title="Little Pills">
+          <img src="https://media.giphy.com/media/87gJZXN7N6WzRCpzz6/giphy.gif" alt="Little Pills" style="object-fit:contain;object-position:center">
+        </button>
+        <button class="present-btn" type="button" title="Disc">
+          <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/yr6DkcAYBzqVi" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+        </button>
+        <button class="present-btn" type="button" title="Buddygames Rosie">
+          <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/xUOxff8L2lSqIS4cmY" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+        </button>
+      </div>
+      <button class="btn-back" type="button" title="Back">←</button>
+    </div>
+  </div>
+
+  <!-- Sad cat overlay (shown when X is clicked) -->
+  <div class="overlay" id="sadOverlay">
+    <img class="sad-cat" src="https://media.giphy.com/media/uUvyQdPSl8dhu/giphy.gif" alt="Sad cat">
+    <h2>AW PLEASE?</h2>
+    
+    <button class="btn-back" type="button" title="Go back">←</button>
+  </div>
+
+  <div class="container">
+    <img class="cat-illustration" src="https://media.giphy.com/media/ToMjGpRZ4gF6YuAT4li/giphy.gif" alt="Cute cat waving">
+
+    <h1>HEY LALOVE!</h1>
+  <p class="question">WOULD YOU LIKE TO BE MY VALENTINE?</p>
+
+    <div class="buttons">
+      <button class="btn btn-x" type="button" title="No">✕</button>
+      <button class="btn btn-check" type="button" title="Yes">✓</button>
+    </div>
+  </div>
+
+  <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+  <script>
+    let giftOverlayHeartInterval;
+    
+    document.querySelector('.btn-check').addEventListener('click', () => {
+      const overlay = document.getElementById('giftOverlay');
+      overlay.classList.add('visible');
+      
+      // Create hearts in the overlay
+      setTimeout(() => {
+        giftOverlayHeartInterval = setInterval(() => {
+          createHeart(overlay);
+        }, 400);
+        
+        // Create initial hearts
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => createHeart(overlay), i * 300);
+        }
+      }, 50);
+    });
+
+    document.querySelector('.btn-x').addEventListener('click', () => {
+      document.getElementById('sadOverlay').classList.add('visible');
+    });
+
+    document.querySelector('#sadOverlay .btn-back').addEventListener('click', () => {
+      document.getElementById('sadOverlay').classList.remove('visible');
+    });
+
+    document.querySelector('#giftOverlay .btn-back').addEventListener('click', () => {
+      const overlay = document.getElementById('giftOverlay');
+      overlay.classList.remove('visible');
+      // Stop creating hearts when overlay is hidden
+      if (giftOverlayHeartInterval) {
+        clearInterval(giftOverlayHeartInterval);
+        giftOverlayHeartInterval = null;
+      }
+      // Remove existing hearts from overlay
+      overlay.querySelectorAll('.falling-heart').forEach(heart => heart.remove());
+    });
+
+    let presentsOverlayHeartInterval;
+    
+    document.querySelector('.btn-open-presents').addEventListener('click', () => {
+      const giftOverlay = document.getElementById('giftOverlay');
+      const presentsOverlay = document.getElementById('presentsOverlay');
+      
+      // Stop gift overlay hearts
+      if (giftOverlayHeartInterval) {
+        clearInterval(giftOverlayHeartInterval);
+        giftOverlayHeartInterval = null;
+      }
+      giftOverlay.querySelectorAll('.falling-heart').forEach(heart => heart.remove());
+      
+      giftOverlay.classList.remove('visible');
+      presentsOverlay.classList.add('visible');
+      
+      // Create hearts in the presents overlay
+      setTimeout(() => {
+        presentsOverlayHeartInterval = setInterval(() => {
+          createHeart(presentsOverlay);
+        }, 400);
+        
+        // Create initial hearts
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => createHeart(presentsOverlay), i * 300);
+        }
+      }, 50);
+    });
+
+    document.querySelector('#presentsOverlay .btn-back').addEventListener('click', () => {
+      const presentsOverlay = document.getElementById('presentsOverlay');
+      const giftOverlay = document.getElementById('giftOverlay');
+      
+      // Stop presents overlay hearts
+      if (presentsOverlayHeartInterval) {
+        clearInterval(presentsOverlayHeartInterval);
+        presentsOverlayHeartInterval = null;
+      }
+      presentsOverlay.querySelectorAll('.falling-heart').forEach(heart => heart.remove());
+      
+      presentsOverlay.classList.remove('visible');
+      giftOverlay.classList.add('visible');
+      
+      // Create hearts in gift overlay when going back
+      setTimeout(() => {
+        giftOverlayHeartInterval = setInterval(() => {
+          createHeart(giftOverlay);
+        }, 400);
+        
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => createHeart(giftOverlay), i * 300);
+        }
+      }, 50);
+    });
+
+    document.querySelectorAll('.present-btn').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        if (i === 0) {
+          window.location.href = 'black.html';
+        } else if (i === 1) {
+          window.location.href = 'music.html';
+        } else if (i === 2) {
+          window.location.href = 'gallery.html';
+        } else {
+          const titles = ['Little Pills', 'Disc', 'Buddygames Rosie'];
+          alert('Opening ' + titles[i] + '... 💕');
+        }
+      });
+    });
+
+    // Check for hash on page load to show presents overlay
+    window.addEventListener('load', () => {
+      if (window.location.hash === '#presents') {
+        const presentsOverlay = document.getElementById('presentsOverlay');
+        presentsOverlay.classList.add('visible');
+        
+        // Create hearts in presents overlay
+        setTimeout(() => {
+          presentsOverlayHeartInterval = setInterval(() => {
+            createHeart(presentsOverlay);
+          }, 400);
+          
+          for (let i = 0; i < 5; i++) {
+            setTimeout(() => createHeart(presentsOverlay), i * 300);
+          }
+        }, 50);
+      }
+    });
+
+    // Falling Hearts Animation
+    function createHeart(container = document.body) {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      container.appendChild(heart);
+
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.remove();
+        }
+      }, 7000);
+    }
+
+    // Create hearts continuously for main page
+    setInterval(() => {
+      if (!document.getElementById('giftOverlay').classList.contains('visible') && 
+          !document.getElementById('sadOverlay').classList.contains('visible') &&
+          !document.getElementById('presentsOverlay').classList.contains('visible')) {
+        createHeart();
+      }
+    }, 400);
+    
+    // Create initial hearts for main page
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        if (!document.getElementById('giftOverlay').classList.contains('visible') && 
+            !document.getElementById('sadOverlay').classList.contains('visible') &&
+            !document.getElementById('presentsOverlay').classList.contains('visible')) {
+          createHeart();
+        }
+      }, i * 300);
+    }
+
+  </script>
+</body>
+</html>

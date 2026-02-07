@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter from My Heart</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 1.5rem;
+      color: #ff69b4;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .date-badge {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #ff69b4;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .gift-page-title {
+      font-family: 'Brush Script MT', 'Segoe Script', cursive;
+      font-size: 2rem;
+      color: #ff69b4;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .gift-emoji {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .love-letter {
+      background: #fff9f9;
+      padding: 30px;
+      border-radius: 15px;
+      border-left: 4px solid #ff69b4;
+      text-align: justify;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .love-letter p {
+      margin-bottom: 15px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .love-letter p:last-child {
+      margin-bottom: 0;
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.75rem 1.5rem;
+      background: #ffc8d4;
+      color: #e85a6e;
+      border: 2px solid #ff69b4;
+      border-radius: 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #ff69b4;
+      color: white;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+        max-width: 100%;
+      }
+
+      .gift-page-title {
+        font-size: 1.75rem;
+      }
+
+      .gift-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .love-letter {
+        padding: 20px;
+        margin: 15px 0;
+      }
+
+      .love-letter p {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+      }
+
+      .date-badge {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .back-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.75rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+
+      .gift-page-title {
+        font-size: 1.5rem;
+      }
+
+      .gift-emoji {
+        font-size: 2rem;
+      }
+
+      .love-letter {
+        padding: 15px;
+        margin: 10px 0;
+      }
+
+      .love-letter p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .date-badge {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .back-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="date-badge">14 FEB</div>
+
+  <div class="card">
+    <div class="gift-page-title"> A Letter from My Heart 💌</div>
+    <div class="gift-emoji">💌</div>
+    <div class="love-letter">
+      <p><strong>Lalove,</strong></p>
+      <p>Since you came into my life, everything feels brighter. Your smile makes my bad days better, and your laughter is the sweetest sound to me.</p>
+      <p>Every day with you feels special. You taught me how to truly care for someone, and I am very thankful to have you in my life.</p>
+      <p>On this special day, I want you to know how much you mean to me. You are not just my Valentine you are my everything.</p>
+      <p><strong>With all my love,<br>Yanrey</strong></p>
+    </div>
+    <button class="back-btn" onclick="window.location.href='index.html#presents'">← Back to Gifts</button>
+  </div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    // Create hearts continuously
+    setInterval(createHeart, 300);
+    
+    // Create initial hearts
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createHeart, i * 200);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Song for You</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .date-badge {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #ff69b4;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .gift-page-title {
+      font-family: 'Brush Script MT', 'Segoe Script', cursive;
+      font-size: 2rem;
+      color: #ff69b4;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .gift-emoji {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .gift-content {
+      text-align: center;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .qr-container {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .qr-code {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      margin: 0 auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .qr-text {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Back button */
+    .back-btn {
+      background: rgba(255, 105, 180, 0.1);
+      color: #ff69b4;
+      padding: 10px 25px;
+      font-size: 1rem;
+      margin-top: 30px;
+      border: 2px solid #ff69b4;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .back-btn:hover {
+      background: #ff69b4;
+      color: white;
+    }
+
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 1.5rem;
+      color: #ff69b4;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+        max-width: 100%;
+      }
+
+      .gift-page-title {
+        font-size: 1.75rem;
+      }
+
+      .gift-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .gift-content {
+        font-size: 0.95rem;
+      }
+
+      .qr-container {
+        padding: 15px;
+        margin: 15px 0;
+      }
+
+      .qr-code {
+        width: 180px;
+        height: 180px;
+      }
+
+      .qr-text {
+        font-size: 0.85rem;
+        margin-top: 12px;
+      }
+
+      .date-badge {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .back-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        margin-top: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.75rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+
+      .gift-page-title {
+        font-size: 1.5rem;
+      }
+
+      .gift-emoji {
+        font-size: 2rem;
+      }
+
+      .gift-content {
+        font-size: 0.9rem;
+      }
+
+      .qr-container {
+        padding: 12px;
+        margin: 12px 0;
+      }
+
+      .qr-code {
+        width: 160px;
+        height: 160px;
+      }
+
+      .qr-text {
+        font-size: 0.8rem;
+        margin-top: 10px;
+      }
+
+      .date-badge {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .back-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="date-badge">14 FEB</div>
+
+  <div class="card">
+    <div class="gift-page-title"> A Song for You 🎶</div>
+    <div class="gift-emoji">🎵💖🎵</div>
+    <div class="gift-content">
+      <p>Scan this QR code to listen to "Palagi" by TJ Monterde - a song that reminds me of you every time I hear it.</p>
+    </div>
+    <div class="qr-container">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://open.spotify.com/track/0sqnYgWOw9DMc6jRgkcB2m?si=UNbGAh1QTtexR41aQHL2AA&pi=UwkG5TYUQKmzQ" 
+           alt="QR Code for Palagi by TJ Monterde" 
+           class="qr-code">
+      <div class="qr-text">
+        Scan with your phone camera
+      </div>
+    </div>
+    <div class="gift-content" style="margin-top: 20px;">
+      <p><strong>Or click the link below:</strong></p>
+      <a href="https://open.spotify.com/track/0sqnYgWOw9DMc6jRgkcB2m?si=UNbGAh1QTtexR41aQHL2AA&pi=UwkG5TYUQKmzQ" 
+         target="_blank" 
+         style="color: #ff69b4; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 10px; padding: 10px 20px; background: rgba(255, 105, 180, 0.1); border-radius: 10px;">
+        🎵 Listen to "Palagi" by TJ Monterde
+      </a>
+    </div>
+    <button class="back-btn" onclick="window.location.href='index.html#presents'">← Back to Gifts</button>
+  </div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    // Create hearts continuously
+    setInterval(createHeart, 300);
+    
+    // Create initial hearts
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createHeart, i * 200);
+    }
+  </script>
+</body>
+</html>
