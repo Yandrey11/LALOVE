@@ -21,6 +21,33 @@
       padding: 2rem 0.5rem;
       position: relative;
       overflow-x: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.4s ease-out forwards;
     }
 
     .header {
@@ -454,7 +481,7 @@
 
   </div>
 
-  <button class="back-btn" onclick="window.location.href='presents.html'">← Back</button>
+  <button class="back-btn" onclick="navigateWithTransition('presents.html')">← Back</button>
 
   <script>
     function createHeart() {
@@ -471,6 +498,14 @@
           heart.remove();
         }
       }, 7000);
+    }
+
+    // Page transition function
+    function navigateWithTransition(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
     }
 
     // Create hearts continuously

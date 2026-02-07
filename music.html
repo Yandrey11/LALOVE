@@ -20,6 +20,33 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.4s ease-out forwards;
     }
 
     .date-badge {
@@ -263,7 +290,7 @@
         🎵 Listen to "Palagi" by TJ Monterde
       </a>
     </div>
-    <button class="back-btn" onclick="window.location.href='presents.html'">← Back to Gifts</button>
+    <button class="back-btn" onclick="navigateWithTransition('presents.html')">← Back to Gifts</button>
   </div>
 
   <script>
@@ -279,6 +306,14 @@
       setTimeout(() => {
         heart.remove();
       }, 5000);
+    }
+
+    // Page transition function
+    function navigateWithTransition(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
     }
 
     // Create hearts continuously

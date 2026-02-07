@@ -25,6 +25,33 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.4s ease-out forwards;
     }
 
     .presents-content {
@@ -201,20 +228,28 @@
     <h2 class="presents-title">Presents for you</h2>
     <p class="presents-subtitle">CLICK ANY BUTTON TO OPEN</p>
     <div class="presents-grid">
-      <button class="present-btn" type="button" title="Little Pills" onclick="window.location.href='black.html'">
+      <button class="present-btn" type="button" title="Little Pills" onclick="navigateWithTransition('black.html')">
         <img src="https://media.giphy.com/media/87gJZXN7N6WzRCpzz6/giphy.gif" alt="Little Pills" style="object-fit:contain;object-position:center">
       </button>
-      <button class="present-btn" type="button" title="Disc" onclick="window.location.href='music.html'">
+      <button class="present-btn" type="button" title="Disc" onclick="navigateWithTransition('music.html')">
         <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/yr6DkcAYBzqVi" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
       </button>
-      <button class="present-btn" type="button" title="Buddygames Rosie" onclick="window.location.href='gallery.html'">
+      <button class="present-btn" type="button" title="Buddygames Rosie" onclick="navigateWithTransition('gallery.html')">
         <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/xUOxff8L2lSqIS4cmY" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
       </button>
     </div>
-    <a href="gift.html" class="btn-back" title="Back">←</a>
+    <a href="gift.html" class="btn-back" title="Back" onclick="event.preventDefault(); navigateWithTransition('gift.html'); return false;">←</a>
   </div>
 
   <script>
+    // Page transition function
+    function navigateWithTransition(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
+    }
+
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'falling-heart';

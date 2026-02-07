@@ -25,6 +25,33 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.4s ease-out forwards;
     }
 
     .flowers-title {
@@ -154,11 +181,19 @@
   <div class="gift-overlay">
     <div class="tenor-gif-embed" data-postid="15564759" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/te-amo-love-i-love-you-flowers-for-you-heart-gif-15564759">Te Amo Love GIF</a>from <a href="https://tenor.com/search/te+amo-gifs">Te Amo GIFs</a></div>
   </div>
-  <button class="btn-open-presents" type="button" onclick="window.location.href='presents.html'">Open Presents</button>
-  <a href="index.html" class="btn-back" title="Close">✕</a>
+  <button class="btn-open-presents" type="button" onclick="navigateWithTransition('presents.html')">Open Presents</button>
+  <a href="index.html" class="btn-back" title="Close" onclick="event.preventDefault(); navigateWithTransition('index.html'); return false;">✕</a>
 
   <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
   <script>
+    // Page transition function
+    function navigateWithTransition(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
+    }
+
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'falling-heart';

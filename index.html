@@ -25,6 +25,33 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    body.fade-out {
+      animation: fadeOut 0.4s ease-out forwards;
     }
 
     .container {
@@ -234,13 +261,21 @@
       setTimeout(createHeart, i * 300);
     }
 
+    // Page transition function
+    function navigateWithTransition(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
+    }
+
     // Button click handlers
     document.querySelector('.btn-check').addEventListener('click', () => {
-      window.location.href = 'gift.html';
+      navigateWithTransition('gift.html');
     });
 
     document.querySelector('.btn-x').addEventListener('click', () => {
-      window.location.href = 'sad.html';
+      navigateWithTransition('sad.html');
     });
 
   </script>
