@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presents for you 🎁</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #f5f0e8 0%, #e8e2d8 50%, #f0ebe2 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .presents-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .presents-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #b52a2a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-family: 'Comic Sans MS', 'Chalkboard', sans-serif;
+    }
+
+    .presents-subtitle {
+      font-size: 0.9rem;
+      color: #5a5a5a;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .presents-grid {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .present-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 16px;
+      background: #ffc8d4;
+      border: 2px solid #e85a6e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .present-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .present-btn img,
+    .present-btn .tenor-gif-embed,
+    .present-btn > div[style*="position:relative"] {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .present-btn iframe {
+      object-fit: cover;
+    }
+
+    .btn-back {
+      margin-top: 1.5rem;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: #c41e3a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 2rem;
+      text-decoration: none;
+    }
+
+    .btn-back:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .falling-heart {
+      position: fixed;
+      top: -50px;
+      font-size: 1.5rem;
+      color: #ff69b4;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(100vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .presents-title {
+        font-size: 1.4rem;
+      }
+
+      .presents-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .presents-grid {
+        gap: 0.75rem;
+      }
+
+      .present-btn {
+        width: 85px;
+        height: 85px;
+      }
+
+      .btn-back {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .presents-title {
+        font-size: 1.2rem;
+      }
+
+      .presents-grid {
+        gap: 0.5rem;
+      }
+
+      .present-btn {
+        width: 75px;
+        height: 75px;
+      }
+
+      .btn-back {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="presents-content">
+    <h2 class="presents-title">Presents for you</h2>
+    <p class="presents-subtitle">CLICK ANY BUTTON TO OPEN</p>
+    <div class="presents-grid">
+      <button class="present-btn" type="button" title="Little Pills" onclick="window.location.href='black.html'">
+        <img src="https://media.giphy.com/media/87gJZXN7N6WzRCpzz6/giphy.gif" alt="Little Pills" style="object-fit:contain;object-position:center">
+      </button>
+      <button class="present-btn" type="button" title="Disc" onclick="window.location.href='music.html'">
+        <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/yr6DkcAYBzqVi" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+      </button>
+      <button class="present-btn" type="button" title="Buddygames Rosie" onclick="window.location.href='gallery.html'">
+        <div style="width:100%;height:100%;position:relative;pointer-events:none;"><iframe src="https://giphy.com/embed/xUOxff8L2lSqIS4cmY" width="100%" height="100%" style="position:absolute;top:0;left:0;border-radius:16px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+      </button>
+    </div>
+    <a href="gift.html" class="btn-back" title="Back">←</a>
+  </div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.remove();
+        }
+      }, 7000);
+    }
+
+    setInterval(createHeart, 400);
+    
+    for (let i = 0; i < 8; i++) {
+      setTimeout(createHeart, i * 300);
+    }
+  </script>
+</body>
+</html>
